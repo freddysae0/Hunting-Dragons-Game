@@ -2,4 +2,4 @@
  * Telegram Bot Api Token
  * @type {string}
  */
-module.exports.token = 'YOUR_TOKEN_HERE';
+module.exports.token = "5516173399:AAETwBd4oJos6jfKvlAYXSziHWBwkeLjvbg";
