@@ -1,8 +1,16 @@
 {
   "name": "nodejs-telegram-bot-part1",
   "version": "0.0.1",
+  "scripts": {
+    "dev": "nodemon app.js"
+  },
   "dependencies": {
     "auto-load": "^3.0.0",
+    "fs": "^0.0.1-security",
+    "mysql": "^2.18.1",
+    "mysql2": "^2.3.3",
+    "sequelize": "^6.21.3",
+    "sqlite3": "^5.0.10",
     "telegraf": "^3.15.3"
   }
 }
