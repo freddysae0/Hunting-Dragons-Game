@@ -39,6 +39,18 @@ Items.init(
       type: DataTypes.STRING,
       allowNull: true,
     },
+    can_be_crafted: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+    },
+    crafted_with_string: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    crafting_return: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+    },
   },
   {
     // Other model options go here
