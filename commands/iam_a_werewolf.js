@@ -32,13 +32,11 @@ module.exports = async (ctx) => {
     await ctx.telegram.sendMessage(
       ctx.from.id,
 
-      "Oh. I'm glad to hear that. Werewolves are loyal and trustworthy creatures, not as many believe. They are strong and powerful. His abilities increase with the phases of the moon ... Pick your class: ",
+      "Oh. I'm glad to hear that. Werewolves are loyal and trustworthy creatures, not as many believe. They are strong and powerful. His abilities increase with the phases of the moon",
       {
-        reply_markup: {
-          keyboard: INITIAL_KEYBOARD,
-          resize_keyboard: true,
-        },
+        reply_markup: null,
       }
     );
+    await ctx.telegram.sendMessage(ctx.from.id, "Now just tell me your name:");
   }
 };

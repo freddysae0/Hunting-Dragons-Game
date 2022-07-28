@@ -25,12 +25,13 @@ module.exports.do = async (ctx) => {
     players = players[0];
     var s = `Hi ${players.dataValues.name}. You are in (Insertar Nombre) Kingdom\u{1F3F0}. Be Welcome  
 
-    Role: ${players.dataValues.role_name}
     Race: ${players.dataValues.race_name}
     Lvl: ${players.dataValues.lvl}
     Exp: ${players.dataValues.actual_exp}/${players.dataValues.levelup_exp}
     Atk: ${players.dataValues.atk}  Def: ${players.dataValues.def}
-    Mp: ${players.dataValues.mp}  Durabilty: ${players.dataValues.dur}
+    `;
+    if (players.dataValues.mp) s += `Mp: ${players.dataValues.mp}  `;
+    s += `Durabilty: ${players.dataValues.dur}
     `;
     if (players.dataValues.team_name)
       s += `Team: ${players.dataValues.team_name}

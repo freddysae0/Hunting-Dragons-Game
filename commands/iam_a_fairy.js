@@ -34,13 +34,8 @@ module.exports = async (ctx) => {
     await ctx.telegram.sendMessage(
       ctx.from.id,
 
-      "Ohh, I haven't seen a fairy around here for a long time. Fairies can use their power to both heal and harm. In addition, their magic allows them to know where some creatures are ... Pick your class: ",
-      {
-        reply_markup: {
-          keyboard: INITIAL_KEYBOARD,
-          resize_keyboard: true,
-        },
-      }
+      "Ohh, I haven't seen a fairy around here for a long time. Fairies can use their power to both heal and harm. In addition, their magic allows them to know where some creatures are ... Pick your class: "
     );
+    await ctx.telegram.sendMessage(ctx.from.id, "Now just tell me your name:");
   }
 };

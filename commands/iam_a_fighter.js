@@ -12,20 +12,15 @@ module.exports = async (ctx) => {
 
   const INITIAL_KEYBOARD = [];
 
-  if (players.length == 0) {
-    await CreatingPlayers.sync();
-    var creatingPlayers = await CreatingPlayers.findAll({
-      where: { telegram_id: chatId },
-    });
-    //race_name = creatingPlayers[0].dataValues.race_name;
-    race_name = creatingPlayers[0].dataValues.race_name;
+  if (players.length == 0 && players[0].dataValues.lvl >= 10) {
+    race_name = players[0].dataValues.race_name;
 
     if (
       race_name == "Human" ||
       race_name == "Fairy" ||
       race_name == "Werewolf"
     ) {
-      await CreatingPlayers.update(
+      await Players.update(
         {
           role_id: 5,
           role_name: "Fighter",
@@ -40,12 +35,8 @@ module.exports = async (ctx) => {
       await ctx.telegram.sendMessage(
         ctx.from.id,
 
-        "Now just tell me your name: ",
-        {
-          reply_markup: {
-            resize_keyboard: false,
-          },
-        }
+        `Felicidades, te haz adaptado a este mundo y haz decidido desarrollar tus habilidades de luchador. Obtienes  
+        +3 de atk,  +1 de def `
       );
     }
   }

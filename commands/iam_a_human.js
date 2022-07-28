@@ -34,13 +34,8 @@ module.exports = async (ctx) => {
     await ctx.telegram.sendMessage(
       ctx.from.id,
 
-      "The last human I saw was an ambitious being with a heart clouded by his ego. He wanted to tame the dragons. How stupid don't you think? Humans can protect others, they are good warriors and by fleeing to it some have developed magical abilities ... Pick your class: ",
-      {
-        reply_markup: {
-          keyboard: INITIAL_KEYBOARD,
-          resize_keyboard: true,
-        },
-      }
+      "The last human I saw was an ambitious being with a heart clouded by his ego. He wanted to tame the dragons. How stupid don't you think? Humans can protect others, they are good warriors and by fleeing to it some have developed magical abilities "
     );
+    await ctx.telegram.sendMessage(ctx.from.id, "Now just tell me your name:");
   }
 };

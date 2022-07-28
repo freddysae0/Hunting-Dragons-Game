@@ -30,13 +30,8 @@ module.exports = async (ctx) => {
     await ctx.telegram.sendMessage(
       ctx.from.id,
 
-      "Oh. No one knows how this race came to be, but we believe that a long time ago a vampire who protected the kingdom was overturned by dark forces making him dependent on blood. Currently some vampires do not draw their strength from the blood of others and have strong defensive qualities. But those who do it increases their aggressiveness and strength. ... Pick your class: ",
-      {
-        reply_markup: {
-          keyboard: INITIAL_KEYBOARD,
-          resize_keyboard: true,
-        },
-      }
+      "Oh. No one knows how this race came to be, but we believe that a long time ago a vampire who protected the kingdom was overturned by dark forces making him dependent on blood. Currently some vampires do not draw their strength from the blood of others and have strong defensive qualities. But those who do it increases their aggressiveness and strength. ... Pick your class: "
     );
+    await ctx.telegram.sendMessage(ctx.from.id, "Now just tell me your name:");
   }
 };

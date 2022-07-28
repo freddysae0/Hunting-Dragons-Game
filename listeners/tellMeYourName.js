@@ -21,7 +21,7 @@ module.exports.do = async (ctx) => {
     console.log(role_id);
 
     const message_text = ctx.update.message.text;
-    if (race_id > 0 && role_id > 0) {
+    if (race_id > 0) {
       //Aqui deberia el usuario agregarse a la base de datos Players y comenzar el juego
       console.log("race_id > 0 && role_id > 0 in tellMeYourName.js");
       console.log("DIME TU NOMBRE");
@@ -50,32 +50,40 @@ module.exports.do = async (ctx) => {
       });
       //buff raciales ---------------
       if (creatingPlayers[0].dataValues.race_name == "Human") {
-        isbc[0].dataValues.mp += 2;
-        isbc[0].dataValues.atk += 1;
-        isbc[0].dataValues.def += 1;
+        atk = 2;
+        def = 2;
+        dur = 1;
+        mp = 2;
+
         s = "/1/.1.";
       }
 
       if (creatingPlayers[0].dataValues.race_name == "Fairy") {
-        isbc[0].dataValues.mp += 2;
-        isbc[0].dataValues.atk += 2;
+        atk = 2;
+        def = 1;
+        dur = 1;
+        mp = 3;
         s = "/3/.1.";
       }
 
       if (creatingPlayers[0].dataValues.race_name == "Werewolf") {
-        isbc[0].dataValues.atk += 2;
-        isbc[0].dataValues.def += 2;
+        atk = 3;
+        def = 3;
+        dur = 1;
+        mp = 0;
         s = "/4/.1.";
       }
 
       if (creatingPlayers[0].dataValues.race_name == "Vampire") {
-        isbc[0].dataValues.atk += 2;
-        isbc[0].dataValues.def += 2;
+        atk = 2;
+        def = 2;
+        dur = 1;
+        mp = 2;
         s = "/2/.1.";
       }
       //end buff raciales ---------------
       //...........................
-      await Players.sync();
+      await Players.sync({ alter: true });
       await Players.create({
         telegram_id: chatId,
         inv_string: s,
@@ -86,10 +94,10 @@ module.exports.do = async (ctx) => {
         race_id: creatingPlayers[0].dataValues.race_id,
         role_name: creatingPlayers[0].dataValues.role_name,
         role_id: creatingPlayers[0].dataValues.role_id,
-        atk: isbc[0].dataValues.atk,
-        def: isbc[0].dataValues.def,
-        mp: isbc[0].dataValues.mp,
-        dur: isbc[0].dataValues.dur,
+        atk,
+        def,
+        mp,
+        dur,
         name: message_text,
       });
       await CreatingPlayers.drop({ where: { telegram_id: chatId } });
