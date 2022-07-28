@@ -23,9 +23,7 @@ module.exports.do = async (ctx) => {
   console.log(players);
   if (players.length == 0) {
     await ctx.replyWithPhoto({
-      source: fs.createReadStream(
-        "/home/freddy/Escritorio/repos/hdg-escalable/assets/werewolfs/werewolf.jpg"
-      ),
+      source: fs.createReadStream("assets/werewolfs/werewolf.jpg"),
     });
     ctx.reply(
       "The legend say that that race habits around all the wolrld, They are awesome warriors, But few are able to controle its power. If you're one of those go here /iam_a_werewolf"

@@ -22,9 +22,7 @@ module.exports.do = async (ctx) => {
   });
   if (players.length == 0) {
     await ctx.replyWithPhoto({
-      source: fs.createReadStream(
-        "/home/freddy/Escritorio/repos/hdg-escalable/assets/humans/human.jpg"
-      ),
+      source: fs.createReadStream("assets/humans/human.jpg"),
     });
     ctx.reply(
       "Years ago, humans came to our kingdom since theirs had been invaded by dragons. Some say they still hear them and dream of them. Though no one cares anyway. Touch here if you're a human /iam_a_human "

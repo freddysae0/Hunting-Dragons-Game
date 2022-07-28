@@ -25,9 +25,7 @@ module.exports.do = async (ctx) => {
   console.log(players);
   if (players.length == 0) {
     await ctx.replyWithPhoto({
-      source: fs.createReadStream(
-        "/home/freddy/Escritorio/repos/hdg-escalable/assets/fairys/fairy.jpg"
-      ),
+      source: fs.createReadStream("assets/fairys/fairy.jpg"),
     });
     ctx.reply(
       "Magical creatures that have used their powers for both good and evil, their power is fully unleashed when they fight as a team. Touch here if you're a fairy /iam_a_fairy "
