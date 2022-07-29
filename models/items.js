@@ -40,7 +40,7 @@ Items.init(
       allowNull: true,
     },
     can_be_crafted: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.BOOLEAN,
       allowNull: true,
     },
     crafted_with_string: {
