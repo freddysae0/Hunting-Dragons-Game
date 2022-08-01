@@ -55,7 +55,7 @@ module.exports.do = async (ctx) => {
         dur = 1;
         mp = 2;
 
-        s = "/1/.1.";
+        s = "/1/.1./5/.50.";
       }
 
       if (creatingPlayers[0].dataValues.race_name == "Fairy") {
