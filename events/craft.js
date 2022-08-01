@@ -54,7 +54,11 @@ module.exports.do = async (ctx) => {
       }
 
       var itemName = crafts[i].dataValues.name;
+      var idItem = crafts[i].dataValues.id;
+
+      console.log(crafts[i].dataValues.id);
       displayCrafteableItems[i] = {
+        idItem,
         itemName,
         canBeCrafted,
       };
@@ -62,9 +66,11 @@ module.exports.do = async (ctx) => {
 
     var reply = `Available Crafts: `;
     for (var i = 0; i < displayCrafteableItems.length; i++) {
-      if(displayCrafteableItems[i].canBeCrafted > 0){
+      if (displayCrafteableItems[i].canBeCrafted > 0) {
         reply += `
-        ${displayCrafteableItems[i].itemName}: ${displayCrafteableItems[i].canBeCrafted}`;
+    ${displayCrafteableItems[i].itemName}: ${parseInt(
+          displayCrafteableItems[i].canBeCrafted
+        )} /c${parseInt(displayCrafteableItems[i].idItem)}`;
       }
     }
 
