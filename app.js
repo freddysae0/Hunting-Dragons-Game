@@ -51,6 +51,14 @@ const commandsItems = autoload("./commands/items");
 Object.keys(commandsItems).forEach((commandKey) => {
   bot.command(commandKey, commandsItems[commandKey]);
 });
+
+const commandsCrafts = autoload("./commands/crafts");
+/**
+ * Iterates the commands to attach them to the "command" Telegraf wrapper.
+ */
+Object.keys(commandsCrafts).forEach((commandKey) => {
+  bot.command(commandKey, commandsCrafts[commandKey]);
+});
 //--------------------------------------------
 // Events guided by RegExp patterns or Strings.
 // guided by http://telegraf.js.org/#/?id=middleware
