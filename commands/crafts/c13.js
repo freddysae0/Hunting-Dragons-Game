@@ -31,7 +31,7 @@ module.exports = async (ctx) => {
         { inv_string: new_inv_string },
         { where: { telegram_id: chatId } }
       );
-      ctx.reply("Item Created");
+      ctx.reply("Item Created. See your /inv");
     }
   }
   //var items = await Items.findAll();
