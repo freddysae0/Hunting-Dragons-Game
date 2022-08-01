@@ -1,3 +1,5 @@
+//NO CAMBIAR EL ORDEN DE LOS ITEMS, SI VAS A ANADIR NUEVOS ANADELOS AL FINAL
+
 const Items = require("../models/items");
 
 module.exports = async (ctx) => {
