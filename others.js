@@ -1,7 +1,7 @@
-module.exports.decifrarInvString = (s) => {
-  if (typeof s != "string") return;
-  var items = s.split("/");
-  var quantity = s.split(".");
+function decifrarInvString(items_string) {
+  if (typeof items_string != "string") return;
+  var items = items_string.split("/");
+  var quantity = items_string.split(".");
   var c = 0;
   var itemsnew = [];
   for (let i = 1; i < items.length; i += 2) {
@@ -20,4 +20,88 @@ module.exports.decifrarInvString = (s) => {
   items = itemsnew;
 
   return { items, quantity };
+}
+function createInvString(items_array = [], quantity_array = []) {
+  let inv_string = "";
+  for (let i = 0; i < items_array.length; i++) {
+    inv_string += "/";
+    inv_string += items_array[i].toString();
+    inv_string += "/.";
+    inv_string += quantity_array[i].toString();
+    inv_string += ".";
+  }
+  return inv_string;
+}
+
+function deleteInvStringItem(items_string, item_id, quantity_to_delete) {
+  if (typeof items_string != "string") return;
+  var items = items_string.split("/");
+  var quantity = items_string.split(".");
+  var c = 0;
+  var itemsnew = [];
+  for (let i = 1; i < items.length; i += 2) {
+    itemsnew[c] = items[i];
+    c++;
+  }
+
+  c = 0;
+  var quantitynew = [];
+  for (let i = 1; i < quantity.length; i += 2) {
+    quantitynew[c] = quantity[i];
+    c++;
+  }
+
+  quantity = quantitynew;
+  items = itemsnew;
+
+  for (let i = 0; i < items.length; i++) {
+    if (items[i] == item_id) {
+      quantity[i] -= quantity_to_delete;
+      break;
+    }
+  }
+  return createInvString(items, quantity);
+}
+
+function addInvStringItem(items_string, item_id, quantity_to_add) {
+  if (typeof items_string != "string") return;
+  var items = items_string.split("/");
+  var quantity = items_string.split(".");
+  var c = 0;
+  var itemsnew = [];
+  for (let i = 1; i < items.length; i += 2) {
+    itemsnew[c] = items[i];
+    c++;
+  }
+
+  c = 0;
+  let quantitynew = [];
+  for (let i = 1; i < quantity.length; i += 2) {
+    quantitynew[c] = parseInt(quantity[i]);
+    c++;
+  }
+
+  quantity = quantitynew;
+  items = itemsnew;
+  console.log(items);
+  console.log(quantity);
+  exists = false;
+  for (let i = 0; i < items.length; i++) {
+    if (items[i] == item_id) {
+      exists = true;
+      quantity[i] += parseInt(quantity_to_add);
+      break;
+    }
+  }
+  if (exists == false) {
+    items.push(item_id);
+    quantity.push(quantity_to_add);
+  }
+  return createInvString(items, quantity);
+}
+module.exports = {
+  decifrarInvString,
+  createInvString,
+  deleteInvStringItem,
+  addInvStringItem,
 };
