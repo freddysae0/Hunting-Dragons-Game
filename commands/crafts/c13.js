@@ -1,6 +1,10 @@
 const Players = require("../../models/players");
 const others = require("../../others");
 
+const command = "c13";
+const item = 13;
+const crafted_with_string = "/5/.3.";
+const crafting_return = 1;
 function isCrafteable(itemName, crafted_with_string) {
   return true;
 }
@@ -16,17 +20,18 @@ module.exports = async (ctx) => {
   itemsAndQuantity = others.decifrarInvString(player.dataValues.inv_string);
 
   if (player === null) {
-    console.log("El usuario esta accediendo a /i1 sin estar registrado");
+    console.log(
+      "El usuario esta accediendo a /" + command + " sin estar registrado"
+    );
   } else {
-    if (isCrafteable("Wood Sword", (crafted_with_string = "/5/.3."))) {
+    if (isCrafteable("Wood Sword", crafted_with_string)) {
       new_inv_string = others.addInvStringItem(
         player.dataValues.inv_string,
-        13,
-        1
+        item,
+        crafting_return
       );
-      console.log(
-        (new_inv_string = others.deleteInvStringItem(new_inv_string, 5, 3))
-      );
+
+      new_inv_string = others.deleteInvStringItem(new_inv_string, 5, 3);
       await Players.update(
         { inv_string: new_inv_string },
         { where: { telegram_id: chatId } }
