@@ -33,7 +33,8 @@ module.exports.do = async (ctx) => {
     var displayCrafteableItems = new Array();
     var cntItems = new Array(30);
     var myItems = others.decifrarInvString(players[0].dataValues.inv_string);
-    var INF = 1000000000;
+
+    console.log(myItems);
 
     for (var i = 0; i < cntItems.length; i++) cntItems[i] = 0;
     for (var i = 0; i < myItems.items.length; i++) {
@@ -41,36 +42,29 @@ module.exports.do = async (ctx) => {
     }
 
     for (var i = 0; i < crafts.length; i++) {
-      var canBeCrafted = INF;
-      var itemsRequired = others.decifrarInvString(
-        crafts[i].dataValues.crafted_with_string
+      var crafteable = others.canBeCrafted(
+        crafts[i].dataValues.name,
+        crafts[i].dataValues.crafted_with_string,
+        cntItems
       );
-
-      for (var j = 0; j < itemsRequired.items.length; j++) {
-        canBeCrafted = Math.min(
-          canBeCrafted,
-          cntItems[itemsRequired.items[j]] / itemsRequired.quantity[j]
-        );
-      }
-
       var itemName = crafts[i].dataValues.name;
       var idItem = crafts[i].dataValues.id;
 
-      console.log(crafts[i].dataValues.id);
       displayCrafteableItems[i] = {
         idItem,
         itemName,
-        canBeCrafted,
+        crafteable,
       };
+      console.log(displayCrafteableItems[i]);
     }
 
     var reply = `Available Crafts: `;
     for (var i = 0; i < displayCrafteableItems.length; i++) {
-      if (displayCrafteableItems[i].canBeCrafted > 0) {
+      if (displayCrafteableItems[i].crafteable > 0) {
         reply += `
-    ${displayCrafteableItems[i].itemName}: ${parseInt(
-          displayCrafteableItems[i].canBeCrafted
-        )} /c${parseInt(displayCrafteableItems[i].idItem)}`;
+    ${displayCrafteableItems[i].itemName}: ${
+          displayCrafteableItems[i].crafteable
+        } /c${parseInt(displayCrafteableItems[i].idItem)}`;
       }
     }
 
