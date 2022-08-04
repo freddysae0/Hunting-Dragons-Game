@@ -49,6 +49,7 @@ const commandsItems = autoload("./commands/items");
  * Iterates the commands to attach them to the "command" Telegraf wrapper.
  */
 Object.keys(commandsItems).forEach((commandKey) => {
+  console.log();
   bot.command(commandKey, commandsItems[commandKey]);
 });
 

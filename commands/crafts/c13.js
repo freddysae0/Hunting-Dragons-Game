@@ -1,5 +1,5 @@
 const Players = require("../../models/players");
-const others = require("../../others");
+const others = require("../../others/others");
 
 const command = "c13";
 const item = 13;

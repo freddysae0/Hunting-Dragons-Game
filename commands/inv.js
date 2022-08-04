@@ -1,7 +1,7 @@
 const Players = require("../models/players");
 const Items = require("../models/items");
 const { Op } = require("sequelize");
-const others = require("../others");
+const others = require("../others/others");
 
 module.exports = async (ctx) => {
   var chatId = ctx.update.message.chat.id;
