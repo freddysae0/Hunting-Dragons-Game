@@ -1,4 +1,4 @@
-const { use } = require("../../others/items/i2");
+const { use } = require("../../others/items/i1");
 module.exports = (ctx) => {
   use(ctx);
 };
