@@ -99,9 +99,28 @@ function addInvStringItem(items_string, item_id, quantity_to_add) {
   }
   return createInvString(items, quantity);
 }
+
+function canBeCrafted(item_name, item_string, cntItems) {
+  
+  var ans=10000000;
+  var itemsRequired = decifrarInvString(item_string);
+  console.log(itemsRequired);
+  for (var i = 0; i < itemsRequired.items.length; i++) {
+    ans = Math.min(
+      ans,
+      parseInt(
+        cntItems[itemsRequired.items[i]] / itemsRequired.quantity[i]
+      )
+    );
+  }
+
+  return ans;
+}
+
 module.exports = {
   decifrarInvString,
   createInvString,
   deleteInvStringItem,
   addInvStringItem,
+  canBeCrafted,
 };
