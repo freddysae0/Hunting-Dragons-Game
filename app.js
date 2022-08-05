@@ -49,8 +49,15 @@ const commandsItems = autoload("./commands/items");
  * Iterates the commands to attach them to the "command" Telegraf wrapper.
  */
 Object.keys(commandsItems).forEach((commandKey) => {
-  console.log();
   bot.command(commandKey, commandsItems[commandKey]);
+});
+
+const commandsUseItems = autoload("./commands/useItems");
+/**
+ * Iterates the commands to attach them to the "command" Telegraf wrapper.
+ */
+Object.keys(commandsUseItems).forEach((commandKey) => {
+  bot.command(commandKey, commandsUseItems[commandKey]);
 });
 
 const commandsCrafts = autoload("./commands/crafts");
