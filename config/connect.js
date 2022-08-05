@@ -15,9 +15,7 @@ async function authenticate() {
   }
 }
 
-token = "5516173399:AAETwBd4oJos6jfKvlAYXSziHWBwkeLjvbg";
 module.exports = {
   authenticate,
   con,
-  token,
 };
