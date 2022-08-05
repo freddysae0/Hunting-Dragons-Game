@@ -56,6 +56,10 @@ Players.init(
       type: DataTypes.STRING,
       allowNull: false,
     },
+    inv_string: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
     atk: {
       type: DataTypes.INTEGER,
       allowNull: true,
