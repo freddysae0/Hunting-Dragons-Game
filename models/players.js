@@ -88,9 +88,33 @@ Players.init(
       type: DataTypes.STRING,
       allowNull: true,
     },
-    inv_string: {
-      type: DataTypes.STRING,
-      allowNull: false,
+    head: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+    },
+    body: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+    },
+    hands: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+    },
+    legs: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+    },
+    feet: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+    },
+    principal_weapon: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+    },
+    secondary_weapon: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
     },
   },
   {
