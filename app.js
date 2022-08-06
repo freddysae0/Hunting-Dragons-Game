@@ -1,5 +1,6 @@
 const autoload = require("auto-load");
 const Telegraf = require("telegraf");
+const Markup = require("telegraf/markup");
 const { authenticate } = require("./config/connect");
 authenticate();
 //--------------------------------------------
@@ -11,7 +12,7 @@ const config = autoload("./config");
 // Bot declaration global
 //--------------------------------------------
 bot = new Telegraf(config.bot.token);
-
+//bot.use(Telegraf.log());
 //--------------------------------------------
 // Error handling
 //--------------------------------------------
@@ -29,6 +30,30 @@ bot.use((ctx, next) => {
     console.log("Response time %sms", ms);
   });
 });
+
+//Esto es basura, pero lo mantengo para fijarme en la estructura de los botones inline
+//y como detectar cuando son presionados
+bot.command("inline", async (ctx) => {
+  return await ctx.reply(
+    "Hi there!",
+    Markup.inlineKeyboard([
+      [
+        Markup.callbackButton("Human", "Human"),
+        Markup.callbackButton("Fill", "Fill"),
+      ],
+      [Markup.callbackButton("Coke", "Coke")],
+    ]).extra()
+  );
+});
+
+bot.action("Fill", (ctx, next) => {
+  console.log(ctx.update.callback_query.message.message_id);
+  ctx.reply("CAN YU TAKE ME TO THE MM").then(() => next());
+  ctx.deleteMessage(ctx.update.callback_query.message.message_id);
+});
+//Esto es basura, pero lo mantengo para fijarme en la estructura de los botones inline
+//y como detectar cuando son presionados
+//end
 
 //--------------------------------------------
 // Bot basic commands
@@ -75,6 +100,7 @@ const commandsCrafts = autoload("./commands/crafts");
 Object.keys(commandsCrafts).forEach((commandKey) => {
   bot.command(commandKey, commandsCrafts[commandKey]);
 });
+
 //--------------------------------------------
 // Events guided by RegExp patterns or Strings.
 // guided by http://telegraf.js.org/#/?id=middleware
