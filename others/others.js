@@ -26,12 +26,15 @@ function decifrarInvString(items_string) {
 }
 function createInvString(items_array = [], quantity_array = []) {
   let inv_string = "";
+
   for (let i = 0; i < items_array.length; i++) {
-    inv_string += "/";
-    inv_string += items_array[i].toString();
-    inv_string += "/.";
-    inv_string += quantity_array[i].toString();
-    inv_string += ".";
+    if (quantity_array[i]) {
+      inv_string += "/";
+      inv_string += items_array[i].toString();
+      inv_string += "/.";
+      inv_string += quantity_array[i].toString();
+      inv_string += ".";
+    }
   }
   return inv_string;
 }

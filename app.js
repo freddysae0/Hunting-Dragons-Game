@@ -60,6 +60,14 @@ Object.keys(commandsUseItems).forEach((commandKey) => {
   bot.command(commandKey, commandsUseItems[commandKey]);
 });
 
+const commandsUnequipItems = autoload("./commands/unequipItems");
+/**
+ * Iterates the commands to attach them to the "command" Telegraf wrapper.
+ */
+Object.keys(commandsUnequipItems).forEach((commandKey) => {
+  bot.command(commandKey, commandsUnequipItems[commandKey]);
+});
+
 const commandsCrafts = autoload("./commands/crafts");
 /**
  * Iterates the commands to attach them to the "command" Telegraf wrapper.

@@ -57,17 +57,39 @@ module.exports = async (ctx) => {
     arr_items = Object.values(items);
     arr_items.sort(compare);
 
-    //HAY QUE DESEQUIPAR EL ITEM QUE HAYA EN PRINCIPAL WEAPON PRIMERO IMPORTANTE!!!
+    var tieneElItem = false;
+    itemsAndQuantity = others.decifrarInvString(inv_string);
+    for (let i = 0; i < itemsAndQuantity.items.length; i++) {
+      if (itemsAndQuantity.items[i] == 13) tieneElItem = true;
+    }
 
-    atk = atk + arr_items[12].atk;
-    if (principal_weapon == null) {
-      await Players.update({ atk: atk }, { where: { telegram_id: chatId } });
+    if (tieneElItem) {
+      if (principal_weapon != null) {
+        principalWeapon = arr_items[principal_weapon - 1];
+        atk -= principalWeapon.atk;
+        def -= principalWeapon.def;
+        mp -= principalWeapon.mp;
+        inv_string = others.addInvStringItem(inv_string, principal_weapon, 1);
+        principal_weapon = null;
+        await Players.update(
+          { inv_string, principal_weapon, atk, def, mp },
+          { where: { telegram_id: chatId } }
+        );
+      }
 
-      inv_string = others.deleteInvStringItem(inv_string, 13, 1);
-      await Players.update(
-        { inv_string: inv_string },
-        { where: { telegram_id: chatId } }
-      );
+      if (principal_weapon == null) {
+        atk = atk + arr_items[12].atk;
+        await Players.update({ atk: atk }, { where: { telegram_id: chatId } });
+
+        principal_weapon = 13;
+        inv_string = others.deleteInvStringItem(inv_string, 13, 1);
+        await Players.update(
+          { inv_string, principal_weapon },
+          { where: { telegram_id: chatId } }
+        );
+
+        ctx.reply("Item equiped");
+      }
     }
   }
 };
