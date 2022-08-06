@@ -31,29 +31,21 @@ module.exports = async (ctx) => {
     arr_items = Object.values(items);
     arr_items.sort(compare);
 
-    var tieneElItem = false;
-    itemsAndQuantity = others.decifrarInvString(inv_string);
-    for (let i = 0; i < itemsAndQuantity.items.length; i++) {
-      if (itemsAndQuantity.items[i] == 13) tieneElItem = true;
+    if (principal_weapon != null) {
+      principalWeapon = arr_items[principal_weapon - 1];
+      console.log(principalWeapon);
+      atk -= principalWeapon.atk;
+      def -= principalWeapon.def;
+      mp -= principalWeapon.mp;
+      inv_string = others.addInvStringItem(inv_string, principal_weapon, 1);
+
+      principal_weapon = null;
+      await Players.update(
+        { inv_string, principal_weapon, atk, def, mp },
+        { where: { telegram_id: chatId } }
+      );
     }
 
-    if (tieneElItem) {
-      if (principal_weapon != null) {
-        principalWeapon = arr_items[principal_weapon - 1];
-        console.log(principalWeapon);
-        atk -= principalWeapon.atk;
-        def -= principalWeapon.def;
-        mp -= principalWeapon.mp;
-        inv_string = others.addInvStringItem(inv_string, principal_weapon, 1);
-
-        principal_weapon = null;
-        await Players.update(
-          { inv_string, principal_weapon, atk, def, mp },
-          { where: { telegram_id: chatId } }
-        );
-      }
-
-      ctx.reply("Item unequiped");
-    }
+    ctx.reply("Item unequiped");
   }
 };
