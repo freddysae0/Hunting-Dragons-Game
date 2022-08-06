@@ -58,7 +58,22 @@ module.exports.do = async (ctx) => {
       console.log(displayCrafteableItems[i]);
     }
 
-    var reply = `Available Crafts: `;
+    //Compruebo si todos los items se pueden craftear 0
+    //veces para decir que no hay ningun crafteo disponible
+    var hayAlgunoCrafteable = false;
+    for (let i = 0; i < displayCrafteableItems.length; i++) {
+      if (displayCrafteableItems[i].crafteable > 0) hayAlgunoCrafteable = true;
+    }
+
+    console.log(displayCrafteableItems);
+    if (hayAlgunoCrafteable) {
+      var reply = `Available Crafts: `;
+    } else {
+      reply = "You haven't available crafts";
+    }
+    //Compruebo si todos los items se pueden craftear 0
+    //veces para decir que no hay ningun crafteo disponible
+    //end
     for (var i = 0; i < displayCrafteableItems.length; i++) {
       if (displayCrafteableItems[i].crafteable > 0) {
         reply += `
