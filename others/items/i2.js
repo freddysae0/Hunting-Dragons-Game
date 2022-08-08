@@ -1,6 +1,15 @@
+var path = require("path");
+var idString = "";
+file_name = path.basename(__filename);
+for (let i = 1; i < file_name.length - 3; i++) {
+  idString += file_name[i];
+}
+idNumber = parseInt(idString);
+
 const Players = require("../../models/players");
 const others = require("../others");
-const id = 3;
+
+const id = idNumber;
 const name = "Ancient papyrus";
 const description =
   "This object contains important information and cannot be deleted";

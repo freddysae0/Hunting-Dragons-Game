@@ -1,9 +1,16 @@
+var path = require("path");
+var idString = "";
+file_name = path.basename(__filename);
+for (let i = 1; i < file_name.length - 3; i++) {
+  idString += file_name[i];
+}
+idNumber = parseInt(idString);
 /*
 
 const Players = require("../../models/players");
 const others = require("../others");
 */
-const id = 12;
+const id = idNumber;
 const name = "Rope";
 const description = "Tie that up before it slips away";
 const class_id = 2;

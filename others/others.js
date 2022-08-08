@@ -1,5 +1,22 @@
 const autoload = require("auto-load");
 const Players = require("../models/players");
+const itemsObject = autoload("./others/items");
+
+function getItemsArray() {
+  function compare(a, b) {
+    if (a.id < b.id) {
+      return -1;
+    }
+    if (a.id > b.id) {
+      return 1;
+    }
+    return 0;
+  }
+
+  arr_items = Object.values(itemsObject);
+  arr_items.sort(compare);
+  return arr_items;
+}
 
 function decifrarInvString(items_string) {
   if (typeof items_string != "string") return;
@@ -152,4 +169,5 @@ module.exports = {
   addInvStringItem,
   canBeCrafted,
   unequip_item,
+  getItemsArray,
 };

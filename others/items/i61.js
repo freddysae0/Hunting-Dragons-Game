@@ -1,20 +1,25 @@
+var path = require("path");
+var idString = "";
+file_name = path.basename(__filename);
+for (let i = 1; i < file_name.length - 3; i++) {
+  idString += file_name[i];
+}
+idNumber = parseInt(idString);
 /*
 
 const Players = require("../../models/players");
 const others = require("../others");
 */
-const id = 14;
+const id = idNumber;
 const name = "Wooden Shield";
 const description = `Usable Item. This will protect you:   
 +4 def
 Press /u14 to equip`;
 
-const item_id = 14;
 const atk = 0;
 const def = 4;
 const mp = 0;
 const class_id = 3;
-const file_name = "wooden_shield";
 const class_name = "Usable";
 const tier_id = null;
 const tier_name = null;
@@ -33,7 +38,6 @@ module.exports = {
   class_id,
   class_name,
   file_name,
-  item_id,
   atk,
   def,
   mp,
