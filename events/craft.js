@@ -1,6 +1,6 @@
 const Players = require("../models/players");
 const others = require("../others/others");
-const Items = require("../models/items");
+const items = others.getItemsArray();
 /* globals bot */
 
 /**
@@ -15,47 +15,34 @@ module.exports.when = "Craft";
  */
 module.exports.do = async (ctx) => {
   await Players.sync();
-  await Items.sync();
   var chatId = ctx.update.message.chat.id;
   var players = await Players.findAll({
     where: {
       telegram_id: chatId,
     },
   });
-  var crafts = await Items.findAll({
-    /* attributes: ["crafted_with_string"], */
-    where: {
-      can_be_crafted: true,
-    },
-  });
+
+  var crafts = new Array();
+  for (var i = 0; i < items.length; i++) {
+    if (items[i].can_be_crafted) crafts.push(items[i]);
+  }
 
   if (players.length > 0) {
     var displayCrafteableItems = new Array();
-    var cntItems = new Array(30);
-    var myItems = others.decifrarInvString(players[0].dataValues.inv_string);
-
-    console.log(myItems);
-
-    for (var i = 0; i < cntItems.length; i++) cntItems[i] = 0;
-    for (var i = 0; i < myItems.items.length; i++) {
-      cntItems[myItems.items[i]] = myItems.quantity[i];
-    }
 
     for (var i = 0; i < crafts.length; i++) {
       var crafteable = others.canBeCrafted(
-        crafts[i].dataValues.name,
-        crafts[i].dataValues.crafted_with_string,
-        cntItems
+        crafts[i].id,
+        players[0].dataValues.inv_string
       );
-      var itemName = crafts[i].dataValues.name;
-      var idItem = crafts[i].dataValues.id;
+      var itemName = crafts[i].name;
+      var idItem = crafts[i].id;
 
       displayCrafteableItems[i] = {
         idItem,
         itemName,
         crafteable,
       };
-      console.log(displayCrafteableItems[i]);
     }
 
     //Compruebo si todos los items se pueden craftear 0
@@ -65,11 +52,10 @@ module.exports.do = async (ctx) => {
       if (displayCrafteableItems[i].crafteable > 0) hayAlgunoCrafteable = true;
     }
 
-    console.log(displayCrafteableItems);
     if (hayAlgunoCrafteable) {
       var reply = `Available Crafts: `;
     } else {
-      reply = "You haven't available crafts";
+      reply = "You don't have available crafts";
     }
     //Compruebo si todos los items se pueden craftear 0
     //veces para decir que no hay ningun crafteo disponible
@@ -83,7 +69,7 @@ module.exports.do = async (ctx) => {
       }
     }
 
-    ctx.reply(reply);
+    ctx.reply(reply); 
   } else {
   }
 };

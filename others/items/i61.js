@@ -24,7 +24,7 @@ const class_name = "Usable";
 const tier_id = null;
 const tier_name = null;
 const can_be_crafted = true;
-const crafted_with_string = "/5/.3.";
+const crafted_with_string = "/5/.5.";
 const crafting_return = 1;
 
 async function use(ctx) {

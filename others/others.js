@@ -63,14 +63,14 @@ function decifrarInvString(items_string) {
   var c = 0;
   var itemsnew = [];
   for (let i = 1; i < items.length; i += 2) {
-    itemsnew[c] = items[i];
+    itemsnew[c] = parseInt(items[i]);
     c++;
   }
 
   c = 0;
   var quantitynew = [];
   for (let i = 1; i < quantity.length; i += 2) {
-    quantitynew[c] = quantity[i];
+    quantitynew[c] = parseInt(quantity[i]);
     c++;
   }
 
@@ -161,13 +161,33 @@ function addInvStringItem(items_string, item_id, quantity_to_add) {
   return createInvString(items, quantity);
 }
 
-function canBeCrafted(item_name, item_string, cntItems) {
+function myQuantityPerItems(inv_string){
+  var arrayCntPerItems = new Array(30);
+  var myItems = decifrarInvString(inv_string);
+
+  for (var i = 0; i < arrayCntPerItems.length; i++) arrayCntPerItems[i] = 0;
+  for (var i = 0; i < myItems.items.length; i++) {
+    arrayCntPerItems[myItems.items[i]] = myItems.quantity[i];
+  }
+
+  return arrayCntPerItems;
+}
+
+function canBeCrafted(item_id, inv_string) {
   var ans = 10000000;
+  var item_string = '';
+  const items = getItemsArray();
+  
+  for(var i = 0; i < items.length; i++){
+    if(items[i].id == item_id) item_string = items[i].crafted_with_string;
+  }
+
   var itemsRequired = decifrarInvString(item_string);
+  var arrayCntPerItems = myQuantityPerItems(inv_string);
   for (var i = 0; i < itemsRequired.items.length; i++) {
     ans = Math.min(
       ans,
-      parseInt(cntItems[itemsRequired.items[i]] / itemsRequired.quantity[i])
+      parseInt(arrayCntPerItems[itemsRequired.items[i]] / itemsRequired.quantity[i])
     );
   }
 
