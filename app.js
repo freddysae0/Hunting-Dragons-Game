@@ -1,7 +1,5 @@
 const autoload = require("auto-load");
 const Telegraf = require("telegraf");
-const Markup = require("telegraf/markup");
-var path = require("path");
 const { authenticate } = require("./config/connect");
 authenticate();
 //--------------------------------------------
