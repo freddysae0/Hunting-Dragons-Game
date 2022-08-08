@@ -1,9 +1,17 @@
+var path = require("path");
+var idString = "";
+file_name = path.basename(__filename);
+for (let i = 1; i < file_name.length - 3; i++) {
+  idString += file_name[i];
+}
+idNumber = parseInt(idString);
 /*
 
 const Players = require("../../models/players");
 const others = require("../others");
 */
-const id = 7;
+const id = idNumber;
+
 const name = "Sand";
 const description =
   "A commun object, is normal to see it in the beach or desert";

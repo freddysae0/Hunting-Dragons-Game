@@ -1,6 +1,7 @@
 const autoload = require("auto-load");
 const Telegraf = require("telegraf");
 const Markup = require("telegraf/markup");
+var path = require("path");
 const { authenticate } = require("./config/connect");
 authenticate();
 //--------------------------------------------
@@ -34,6 +35,10 @@ bot.use((ctx, next) => {
 //Esto es basura, pero lo mantengo para fijarme en la estructura de los botones inline
 //y como detectar cuando son presionados
 bot.command("inline", async (ctx) => {
+  var scriptName = path.basename(__filename);
+
+  console.log("se accedio a ", scriptName);
+
   return await ctx.reply(
     "Hi there!",
     Markup.inlineKeyboard([

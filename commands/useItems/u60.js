@@ -60,7 +60,7 @@ module.exports = async (ctx) => {
     var tieneElItem = false;
     itemsAndQuantity = others.decifrarInvString(inv_string);
     for (let i = 0; i < itemsAndQuantity.items.length; i++) {
-      if (itemsAndQuantity.items[i] == 13) tieneElItem = true;
+      if (itemsAndQuantity.items[i] == 60) tieneElItem = true;
     }
 
     if (tieneElItem) {
@@ -81,8 +81,8 @@ module.exports = async (ctx) => {
         atk = atk + arr_items[12].atk;
         await Players.update({ atk: atk }, { where: { telegram_id: chatId } });
 
-        principal_weapon = 13;
-        inv_string = others.deleteInvStringItem(inv_string, 13, 1);
+        principal_weapon = 60;
+        inv_string = others.deleteInvStringItem(inv_string, 60, 1);
         await Players.update(
           { inv_string, principal_weapon },
           { where: { telegram_id: chatId } }
