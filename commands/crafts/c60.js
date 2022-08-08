@@ -3,7 +3,8 @@ const others = require("../../others/others");
 
 Item = others.getItembyId(others.getIdForThisFile(__filename));
 const id = Item.id;
-
+const crafting_return = Item.crafting_return;
+console.log(Item);
 module.exports = async (ctx) => {
   var chatId = ctx.update.message.chat.id;
   var player = await Players.findOne({
@@ -11,17 +12,18 @@ module.exports = async (ctx) => {
       telegram_id: chatId,
     },
   });
+  console.log(player.dataValues.inv_string);
   itemsAndQuantity = others.decifrarInvString(player.dataValues.inv_string);
 
   if (player === null) {
     console.log(
-      "El usuario esta accediendo a /" + command + " sin estar registrado"
+      "El usuario esta accediendo a /c" + id + " sin estar registrado"
     );
   } else {
     if (others.canBeCrafted(id, player.dataValues.inv_string)) {
       new_inv_string = others.addInvStringItem(
         player.dataValues.inv_string,
-        item,
+        id,
         crafting_return
       );
 
