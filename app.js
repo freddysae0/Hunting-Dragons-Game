@@ -32,34 +32,6 @@ bot.use((ctx, next) => {
   });
 });
 
-//Esto es basura, pero lo mantengo para fijarme en la estructura de los botones inline
-//y como detectar cuando son presionados
-bot.command("inline", async (ctx) => {
-  var scriptName = path.basename(__filename);
-
-  console.log("se accedio a ", scriptName);
-
-  return await ctx.reply(
-    "Hi there!",
-    Markup.inlineKeyboard([
-      [
-        Markup.callbackButton("Human", "Human"),
-        Markup.callbackButton("Fill", "Fill"),
-      ],
-      [Markup.callbackButton("Coke", "Coke")],
-    ]).extra()
-  );
-});
-
-bot.action("Fill", (ctx, next) => {
-  console.log(ctx.update.callback_query.message.message_id);
-  ctx.reply("CAN YU TAKE ME TO THE MM").then(() => next());
-  ctx.deleteMessage(ctx.update.callback_query.message.message_id);
-});
-//Esto es basura, pero lo mantengo para fijarme en la estructura de los botones inline
-//y como detectar cuando son presionados
-//end
-
 //--------------------------------------------
 // Bot basic commands
 //--------------------------------------------
@@ -104,6 +76,15 @@ const commandsCrafts = autoload("./commands/crafts");
  */
 Object.keys(commandsCrafts).forEach((commandKey) => {
   bot.command(commandKey, commandsCrafts[commandKey]);
+});
+
+const inlines = autoload("./inlines");
+/**
+ * Iterates the object model to get all the actions firing events.
+ */
+Object.keys(inlines).forEach((actionKey) => {
+  let inline = inlines[actionKey];
+  bot.action(inline.when, inline.do);
 });
 
 //--------------------------------------------

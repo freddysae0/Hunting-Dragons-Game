@@ -1,6 +1,32 @@
 const autoload = require("auto-load");
 const Players = require("../models/players");
 const itemsObject = autoload("./others/items");
+const path = require("path");
+
+//A esta funcion la vas a llamar pasandole un x valor menor que 1000
+//Esta funcion tiene un x/1000 valor de returnar true
+function probabilidad(x) {
+  // sea randomNumber un número del 1 al 1000
+  var randomNumber = Math.floor(Math.random() * 1000 + 1);
+
+  if (randomNumber <= x) {
+    return true;
+  } else return false;
+}
+
+//A esta funcion la vas a llamar pasandole un x valor
+//Esta funcion tiene un x valor de returnar true
+//end
+
+function getIdForThisFile(file) {
+  var idString = "";
+  file_name = path.basename(file);
+  for (let i = 1; i < file_name.length - 3; i++) {
+    idString += file_name[i];
+  }
+  idNumber = parseInt(idString);
+  return idNumber;
+}
 
 function getItemsArray() {
   function compare(a, b) {
@@ -16,6 +42,18 @@ function getItemsArray() {
   arr_items = Object.values(itemsObject);
   arr_items.sort(compare);
   return arr_items;
+}
+function getItembyId(item_id) {
+  let items = getItemsArray();
+  let toReturn;
+  for (let i = 0; i < items.length; i++) {
+    if (items[i].id == item_id) {
+      toReturn = items[i];
+      break;
+    }
+  }
+
+  return toReturn;
 }
 
 function decifrarInvString(items_string) {
@@ -169,5 +207,8 @@ module.exports = {
   addInvStringItem,
   canBeCrafted,
   unequip_item,
+  probabilidad,
   getItemsArray,
+  getIdForThisFile,
+  getItembyId,
 };

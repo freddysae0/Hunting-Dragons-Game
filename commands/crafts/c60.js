@@ -1,13 +1,8 @@
 const Players = require("../../models/players");
 const others = require("../../others/others");
 
-const command = "c13";
-const item = 13;
-const crafted_with_string = "/5/.3.";
-const crafting_return = 1;
-function isCrafteable(itemName, crafted_with_string) {
-  return true;
-}
+Item = others.getItembyId(others.getIdForThisFile(__filename));
+const id = Item.id;
 
 module.exports = async (ctx) => {
   var chatId = ctx.update.message.chat.id;
@@ -16,7 +11,6 @@ module.exports = async (ctx) => {
       telegram_id: chatId,
     },
   });
-  console.log();
   itemsAndQuantity = others.decifrarInvString(player.dataValues.inv_string);
 
   if (player === null) {
@@ -24,7 +18,7 @@ module.exports = async (ctx) => {
       "El usuario esta accediendo a /" + command + " sin estar registrado"
     );
   } else {
-    if (isCrafteable("Wood Sword", crafted_with_string)) {
+    if (others.canBeCrafted(id, player.dataValues.inv_string)) {
       new_inv_string = others.addInvStringItem(
         player.dataValues.inv_string,
         item,
