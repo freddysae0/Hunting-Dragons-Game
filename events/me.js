@@ -1,7 +1,8 @@
 const autoload = require("auto-load");
 const Players = require("../models/players");
-const items = autoload("./others/items");
-
+const others = require("../others/others");
+const arr_items = others.getItemsArray();
+var principal_weapon_icon = "";
 /* globals bot */
 
 /**
@@ -31,12 +32,15 @@ module.exports.do = async (ctx) => {
     }
     return 0;
   }
+  //SETTING ICONS
 
-  arr_items = Object.values(items);
-  arr_items.sort(compare);
+  const principal_weapon_id = players[0].dataValues.principal_weapon;
 
-  console.log("arr_items", arr_items);
-  console.log("principal_weapon", players[0].dataValues.principal_weapon);
+  var principalWeapon = others.getItembyId(principal_weapon_id);
+
+  //SETTING ICONS
+  //END
+
   if (players.length > 0) {
     players = players[0];
     var s = `Hi ${players.dataValues.name}. You are in (Insertar Nombre) Kingdom\u{1F3F0}. Be Welcome  
@@ -50,9 +54,21 @@ module.exports.do = async (ctx) => {
     s += `Durabilty: ${players.dataValues.dur}
     `;
     if (players.dataValues.principal_weapon)
-      s += `P Weapon: ${
-        arr_items[players.dataValues.principal_weapon - 1].name
-      } /un${arr_items[players.dataValues.principal_weapon - 1].id}
+      if (principalWeapon.atk > 0) {
+        s += "+" + principalWeapon.atk.toString() + "⚔️";
+      }
+    if (principalWeapon.def > 0) {
+      s += "+" + principalWeapon.def.toString() + "🛡️";
+    }
+    if (principalWeapon.mp > 0) {
+      s += "+" + principalWeapon.mp.toString() + "🔷";
+    }
+    if (principalWeapon.dur > 0) {
+      s += "+" + principalWeapon.dur.toString() + "💪";
+    }
+    s += `${principal_weapon_icon} ..${
+      others.getItembyId(players.dataValues.principal_weapon).name
+    } /un${players.dataValues.principal_weapon}
       `;
 
     if (players.dataValues.team_name)
