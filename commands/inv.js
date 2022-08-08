@@ -20,13 +20,8 @@ module.exports = async (ctx) => {
   for (let i = 0; i < itemsEnElInv.length; i++) {
     tengoElItem[itemsEnElInv[i]] = itemsAndQuantity.quantity[i];
   }
-  console.log(itemsEnElInv);
-  console.log(tengoElItem);
 
-  console.log(tengoElItem[itemsEnElInv[0]]);
-  console.log(tengoElItem[itemsEnElInv[1]]);
-  console.log(tengoElItem[itemsEnElInv[2]]);
-
+  console.log(itemsAndQuantity);
   Items = others.getItemsArray();
 
   var s = `<b>Your inventory:</b>
