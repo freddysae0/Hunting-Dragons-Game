@@ -14,14 +14,17 @@ const id = idNumber;
 const name = "Wooden Sword";
 const description = `Usable Item. This hurts:  
 +3 atk
-Press /u13 to equip`;
-const item_id = 13;
+Press /u${idNumber} to equip`;
 const atk = 3;
 const def = 0;
 const mp = 0;
+const dur = 0;
 
 const class_id = 3;
 const class_name = "Usable";
+const weapon_class_id = 1;
+const weapon_class_name = "One Hand Sword";
+
 const tier_id = null;
 const tier_name = null;
 const can_be_crafted = true;
@@ -38,9 +41,12 @@ module.exports = {
   description,
   class_id,
   file_name,
+  weapon_class_id,
+  weapon_class_name,
   atk,
   def,
   mp,
+  dur,
   class_name,
   tier_id,
   tier_name,

@@ -14,13 +14,17 @@ const id = idNumber;
 const name = "Wooden Shield";
 const description = `Usable Item. This will protect you:   
 +4 def
-Press /u14 to equip`;
+Press /u${idNumber} to equip`;
 
 const atk = 0;
 const def = 4;
 const mp = 0;
 const class_id = 3;
 const class_name = "Usable";
+
+const weapon_class_id = 3;
+const weapon_class_name = "Primary Shield";
+
 const tier_id = null;
 const tier_name = null;
 const can_be_crafted = true;
@@ -37,6 +41,8 @@ module.exports = {
   description,
   class_id,
   class_name,
+  weapon_class_id,
+  weapon_class_name,
   file_name,
   atk,
   def,
