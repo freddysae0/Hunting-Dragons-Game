@@ -20,7 +20,7 @@ module.exports = async (ctx) => {
       "El usuario esta accediendo a /c" + id + " sin estar registrado"
     );
   } else {
-    if (others.canBeCrafted(id, player.dataValues.inv_string)) {
+    if (others.canBeCrafted(id, player.dataValues.inv_string) > 0) {
       new_inv_string = others.addInvStringItem(
         player.dataValues.inv_string,
         id,
@@ -33,6 +33,8 @@ module.exports = async (ctx) => {
         { where: { telegram_id: chatId } }
       );
       ctx.reply("Item Created. See your /inv");
+    } else {
+      ctx.reply("You do not have the resources to build this item");
     }
   }
   //var items = await Items.findAll();
