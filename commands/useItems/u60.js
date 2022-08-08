@@ -1,7 +1,14 @@
-const autoload = require("auto-load");
+var path = require("path");
 const others = require("../../others/others");
 const Players = require("../../models/players");
-const items = autoload("./others/items");
+const items = others.getItemsArray();
+var idString = "";
+file_name = path.basename(__filename);
+for (let i = 1; i < file_name.length - 3; i++) {
+  idString += file_name[i];
+}
+const idNumber = others.getIdForThisFile(__filename);
+console.log(idNumber);
 module.exports = async (ctx) => {
   function compare(a, b) {
     if (a.id < b.id) {
@@ -56,7 +63,7 @@ module.exports = async (ctx) => {
 
     arr_items = Object.values(items);
     arr_items.sort(compare);
-
+    item = others.getItembyId(idNumber);
     var tieneElItem = false;
     itemsAndQuantity = others.decifrarInvString(inv_string);
     for (let i = 0; i < itemsAndQuantity.items.length; i++) {
@@ -64,8 +71,10 @@ module.exports = async (ctx) => {
     }
 
     if (tieneElItem) {
+      console.log(principal_weapon);
       if (principal_weapon != null) {
-        principalWeapon = arr_items[principal_weapon - 1];
+        principalWeapon = others.getItembyId(principal_weapon);
+        console.log(principal_weapon);
         atk -= principalWeapon.atk;
         def -= principalWeapon.def;
         mp -= principalWeapon.mp;
@@ -78,10 +87,10 @@ module.exports = async (ctx) => {
       }
 
       if (principal_weapon == null) {
-        atk = atk + arr_items[12].atk;
+        atk = atk + item.atk;
         await Players.update({ atk: atk }, { where: { telegram_id: chatId } });
-
-        principal_weapon = 60;
+        console.log("idNumber", idNumber);
+        principal_weapon = idNumber;
         inv_string = others.deleteInvStringItem(inv_string, 60, 1);
         await Players.update(
           { inv_string, principal_weapon },
