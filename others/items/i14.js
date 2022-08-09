@@ -12,6 +12,10 @@ const others = require("../others");
 */
 const id = idNumber;
 const name = "Jasmine Flower";
+//La probabilidad se tomara en base a 1000. Por ejemplo 240/1000.
+//De cada 1000 veces que se busque este objeto 240 lo encontrara
+const probability_to_be_found = 50;
+
 const description = "It's perfect for dates, or potions";
 const class_id = 2;
 const class_name = "Resource";
@@ -32,6 +36,8 @@ module.exports = {
   class_id,
   class_name,
   tier_id,
+
+  probability_to_be_found,
   tier_name,
   can_be_crafted,
   crafted_with_string,

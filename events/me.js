@@ -53,23 +53,24 @@ module.exports.do = async (ctx) => {
     if (players.dataValues.mp) s += `Mp: ${players.dataValues.mp}  `;
     s += `Durabilty: ${players.dataValues.dur}
     `;
-    if (players.dataValues.principal_weapon)
+    if (players.dataValues.principal_weapon) {
       if (principalWeapon.atk > 0) {
         s += "+" + principalWeapon.atk.toString() + "⚔️";
       }
-    if (principalWeapon.def > 0) {
-      s += "+" + principalWeapon.def.toString() + "🛡️";
-    }
-    if (principalWeapon.mp > 0) {
-      s += "+" + principalWeapon.mp.toString() + "🔷";
-    }
-    if (principalWeapon.dur > 0) {
-      s += "+" + principalWeapon.dur.toString() + "💪";
-    }
-    s += `${principal_weapon_icon} ..${
-      others.getItembyId(players.dataValues.principal_weapon).name
-    } /un${players.dataValues.principal_weapon}
+      if (principalWeapon.def > 0) {
+        s += "+" + principalWeapon.def.toString() + "🛡️";
+      }
+      if (principalWeapon.mp > 0) {
+        s += "+" + principalWeapon.mp.toString() + "🔷";
+      }
+      if (principalWeapon.dur > 0) {
+        s += "+" + principalWeapon.dur.toString() + "💪";
+      }
+      s += `${principal_weapon_icon} ..${
+        others.getItembyId(players.dataValues.principal_weapon).name
+      } /un${players.dataValues.principal_weapon}
       `;
+    }
 
     if (players.dataValues.team_name)
       s += `Team: ${players.dataValues.team_name}

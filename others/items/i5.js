@@ -5,6 +5,10 @@ const others = require("../others");
 */
 const id = 5;
 const name = "Stick";
+//La probabilidad se tomara en base a 1000. Por ejemplo 240/1000.
+//De cada 1000 veces que se busque este objeto 240 lo encontrara
+const probability_to_be_found = 410;
+
 const description =
   "A very commun object, is normal to see it in floor or trees";
 const class_id = 2;
@@ -24,6 +28,8 @@ module.exports = {
   name,
   description,
   class_id,
+
+  probability_to_be_found,
   class_name,
   tier_id,
   tier_name,

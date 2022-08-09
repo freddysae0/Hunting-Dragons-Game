@@ -11,6 +11,9 @@ const Players = require("../../models/players");
 const others = require("../others");
 */
 const id = idNumber;
+//La probabilidad se tomara en base a 1000. Por ejemplo 240/1000.
+//De cada 1000 veces que se busque este objeto 240 lo encontrara
+const probability_to_be_found = 90;
 
 const name = "Bronce";
 const description = "A commun mineral in the kingdom";
@@ -33,6 +36,8 @@ module.exports = {
   class_id,
   class_name,
   tier_id,
+
+  probability_to_be_found,
   tier_name,
   can_be_crafted,
   crafted_with_string,

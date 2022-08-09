@@ -17,6 +17,28 @@ function probabilidad(x) {
 //A esta funcion la vas a llamar pasandole un x valor
 //Esta funcion tiene un x valor de returnar true
 //end
+function getItemsArrayWhereResources() {
+  function compare(a, b) {
+    if (a.id < b.id) {
+      return -1;
+    }
+    if (a.id > b.id) {
+      return 1;
+    }
+    return 0;
+  }
+
+  arr_items = Object.values(itemsObject);
+  arr_items.sort(compare);
+
+  let resources_array = [];
+  for (let i = 0; i < arr_items.length; i++) {
+    if (arr_items[i].class_id == 2) {
+      resources_array.push(arr_items[i]);
+    }
+  }
+  return resources_array;
+}
 
 function getIdForThisFile(file) {
   var idString = "";
@@ -232,5 +254,6 @@ module.exports = {
   probabilidad,
   getItemsArray,
   getIdForThisFile,
+  getItemsArrayWhereResources,
   getItembyId,
 };
