@@ -56,5 +56,5 @@ module.exports.do = async (ctx) => {
         }
       );
     }
-  }, 60000);
+  }, 1000);
 };
