@@ -7,6 +7,7 @@ module.exports.when = "text";
 
 /* What to do when the bot gets a sticker */
 module.exports.do = async (ctx) => {
+  console.log(ctx);
   var chatId = ctx.from.id;
   var creatingPlayers = await CreatingPlayers.findAll({
     where: {

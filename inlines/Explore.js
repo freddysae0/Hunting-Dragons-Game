@@ -1,6 +1,6 @@
 const Players = require("../models/players");
 const others = require("../others/others");
-
+var subioDeNivel = false;
 /* globals bot */
 function subirDeLVL(
   actual_exp,
@@ -12,6 +12,7 @@ function subirDeLVL(
 ) {
   actual_exp += exp_recibida;
   if (actual_exp >= levelup_exp) {
+    subioDeNivel = true;
     actual_exp = actual_exp - levelup_exp;
     levelup_exp = Math.ceil(levelup_exp * 1.7);
     let exp_recibida = Math.floor(
@@ -67,6 +68,8 @@ module.exports.when = "Explore";
  */
 
 module.exports.do = async (ctx) => {
+  subioDeNivel = false;
+
   const resources_array = others.getItemsArrayWhereResources();
 
   const player = await Players.findOne(
@@ -122,8 +125,11 @@ module.exports.do = async (ctx) => {
         levelup_exp = player.dataValues.levelup_exp;
         min_experiencia_ganada = player.dataValues.min_exp_per_mission;
         max_experiencia_ganada = player.dataValues.max_exp_per_mission;
-        var s = `You have returned of your travel, you got +${exp_recibida} EXP and:\n`;
+        var s = "";
+
+        s = `You have returned of your travel, you got +${exp_recibida} EXP and:\n`;
         if (youRecibe.length == 0) {
+          s = `Volviste!! No encontraste ningun objeto pero obtienes +${exp_recibida} EXP, mmm`;
           await Players.update(
             { actual_exp: actual_exp + exp_recibida },
             {
@@ -151,9 +157,6 @@ module.exports.do = async (ctx) => {
               },
             }
           );
-          ctx.reply(
-            `Volviste!! No encontraste ningun objeto pero obtienes +${exp_recibida} EXP, mmm`
-          );
         } else {
           for (let i = 0; i < youRecibe.length; i++) {
             s += "+";
@@ -168,7 +171,6 @@ module.exports.do = async (ctx) => {
             );
           }
 
-          ctx.reply(s);
           await Players.update(
             { actual_exp: actual_exp + exp_recibida },
             {
@@ -195,7 +197,18 @@ module.exports.do = async (ctx) => {
               },
             }
           );
+
+          if (subioDeNivel == true) {
+            ctx.telegram.sendSticker(
+              ctx.from.id,
+              "CAACAgEAAxkBAAIZL2L2mm34mIA1A7NndtMGW6YeXAVdAALhAgACPU7RRmxLiAsLApUPKQQ"
+            );
+            s =
+              "Congratulations!!! You have leveled up, now you can choose which skill to increase. Choose wisely here: /levelup \n \n" +
+              s;
+          }
         }
+        ctx.reply(s);
       }, 1000);
     } else
       return await ctx.reply(
