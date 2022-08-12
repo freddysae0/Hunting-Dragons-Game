@@ -28,6 +28,20 @@ Players.init(
       type: DataTypes.STRING,
       allowNull: false,
     },
+    is_in_quest: {
+      type: DataTypes.BOOLEAN,
+      allowNull: true,
+      defaultValue: false,
+    },
+
+    faction_id: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+    },
+    faction_name: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
     role_id: {
       type: DataTypes.INTEGER,
       allowNull: true,
@@ -53,8 +67,18 @@ Players.init(
       allowNull: false,
     },
     levelup_exp: {
-      type: DataTypes.STRING,
+      type: DataTypes.INTEGER,
       allowNull: false,
+    },
+    min_exp_per_mission: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+      defaultValue: 1,
+    },
+    max_exp_per_mission: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+      defaultValue: 1,
     },
     inv_string: {
       type: DataTypes.STRING,

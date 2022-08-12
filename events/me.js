@@ -1,4 +1,3 @@
-const autoload = require("auto-load");
 const Players = require("../models/players");
 const others = require("../others/others");
 const arr_items = others.getItemsArray();
@@ -43,9 +42,11 @@ module.exports.do = async (ctx) => {
 
   if (players.length > 0) {
     players = players[0];
-    var s = `Hi ${players.dataValues.name}. You are in (Insertar Nombre) Kingdom\u{1F3F0}. Be Welcome  
-
-    Race: ${players.dataValues.race_name}
+    faction = players.dataValues.faction;
+    var s = `Hi ${players.dataValues.name}. You are in the Castle\u{1F3F0}. Be Welcome \n\n`;
+    if (players.dataValues.is_in_quest)
+      s = `Hi ${players.dataValues.name}. You are really bussy right now. \n\n`;
+    s += `Race: ${players.dataValues.race_name}
     Lvl: ${players.dataValues.lvl}
     Exp: ${players.dataValues.actual_exp}/${players.dataValues.levelup_exp}
     Atk: ${players.dataValues.atk}  Def: ${players.dataValues.def}
