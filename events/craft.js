@@ -14,6 +14,7 @@ module.exports.when = "Craft";
  * @param ctx
  */
 module.exports.do = async (ctx) => {
+  console.log("Se ejecuto craft.js");
   await Players.sync();
   var chatId = ctx.update.message.chat.id;
   var players = await Players.findAll({
@@ -69,7 +70,7 @@ module.exports.do = async (ctx) => {
       }
     }
 
-    ctx.reply(reply); 
+    ctx.reply(reply);
   } else {
   }
 };
