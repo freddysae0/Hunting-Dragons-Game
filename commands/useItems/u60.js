@@ -29,34 +29,14 @@ module.exports = async (ctx) => {
   });
 
   if (players.length > 0) {
-    var id = players[0].dataValues.id;
-    var telegram_id = players[0].dataValues.telegram_id;
-    var kingdom_id = players[0].dataValues.kingdom_id;
-    var kingdom_name = players[0].dataValues.kingdom_name;
     var name = players[0].dataValues.name;
-    var role_id = players[0].dataValues.role_id;
-    var role_name = players[0].dataValues.role_name;
-    var race_id = players[0].dataValues.race_id;
     var race_name = players[0].dataValues.race_name;
-    var lvl = players[0].dataValues.lvl;
-    var actual_exp = players[0].dataValues.actual_exp;
-    var levelup_exp = players[0].dataValues.levelup_exp;
     var atk = players[0].dataValues.atk;
     var def = players[0].dataValues.def;
     var mp = players[0].dataValues.mp;
-    var dur = players[0].dataValues.dur;
-    var team_id = players[0].dataValues.team_id;
-    var team_name = players[0].dataValues.team_name;
-    var castle_id = players[0].dataValues.castle_id;
-    var castle_name = players[0].dataValues.castle_name;
-    var inv_string = players[0].dataValues.inv_string;
-    var head = players[0].dataValues.head;
-    var body = players[0].dataValues.body;
-    var hands = players[0].dataValues.hands;
-    var legs = players[0].dataValues.legs;
-    var feet = players[0].dataValues.feet;
+    var inv_string = players[0].dataValues;
     var principal_weapon = players[0].dataValues.principal_weapon;
-    var secondary_weapon = players[0].dataValues.secondary_weapon;
+    var two_hands_weapon = players[0].dataValues.two_hands_weapon;
     console.log("name", name);
     console.log("race", race_name);
     console.log("principal weapon", principal_weapon);
@@ -82,6 +62,18 @@ module.exports = async (ctx) => {
         principal_weapon = null;
         await Players.update(
           { inv_string, principal_weapon, atk, def, mp },
+          { where: { telegram_id: chatId } }
+        );
+      }
+      if (two_hands_weapon != null) {
+        secondaryWeapon = others.getItembyId(two_hands_weapon);
+        atk -= secondaryWeapon.atk;
+        def -= secondaryWeapon.def;
+        mp -= secondaryWeapon.mp;
+        inv_string = others.addInvStringItem(inv_string, two_hands_weapon, 1);
+        two_hands_weapon = null;
+        await Players.update(
+          { inv_string, two_hands_weapon, atk, def, mp },
           { where: { telegram_id: chatId } }
         );
       }

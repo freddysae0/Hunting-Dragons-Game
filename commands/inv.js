@@ -3,6 +3,11 @@ const { Op } = require("sequelize");
 const others = require("../others/others");
 
 module.exports = async (ctx) => {
+  function compare(a, b) {
+    if (a > b) return 1;
+    if (a < b) return -1;
+    else return 0;
+  }
   var chatId = ctx.update.message.chat.id;
   var players = await Players.findAll({
     attributes: ["inv_string"],
@@ -14,14 +19,16 @@ module.exports = async (ctx) => {
   inv_string = players[0].dataValues.inv_string;
 
   itemsAndQuantity = others.decifrarInvString(inv_string);
+
   itemsEnElInv = itemsAndQuantity.items;
+
   var tengoElItem = [];
 
   for (let i = 0; i < itemsEnElInv.length; i++) {
     tengoElItem[itemsEnElInv[i]] = itemsAndQuantity.quantity[i];
   }
-
-  console.log(itemsAndQuantity);
+  itemsEnElInv.sort(compare);
+  console.log(itemsEnElInv);
   Items = others.getItemsArray();
 
   var s = `<b>Your inventory:</b>
@@ -33,7 +40,7 @@ module.exports = async (ctx) => {
     s += thisItem.name;
     s += ": ";
     s += tengoElItem[itemsEnElInv[i]].toString();
-    s += ` <i>--Use:</i> /i`;
+    s += ` <i> -Info:</i> /i`;
     s += thisItem.id.toString();
     s += `
     `;

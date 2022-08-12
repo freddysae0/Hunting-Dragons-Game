@@ -37,12 +37,12 @@ module.exports = async (ctx) => {
     var def = players[0].dataValues.def;
     var mp = players[0].dataValues.mp;
     var inv_string = players[0].dataValues.inv_string;
-    var principal_weapon = players[0].dataValues.principal_weapon;
+    var secondary_weapon = players[0].dataValues.secondary_weapon;
     var two_hands_weapon = players[0].dataValues.two_hands_weapon;
 
     console.log("name", name);
     console.log("race", race_name);
-    console.log("principal weapon", principal_weapon);
+    console.log("secondary weapon", secondary_weapon);
 
     arr_items = Object.values(items);
     arr_items.sort(compare);
@@ -54,19 +54,18 @@ module.exports = async (ctx) => {
     }
 
     if (tieneElItem) {
-      if (principal_weapon != null) {
-        principalWeapon = others.getItembyId(principal_weapon);
-        atk -= principalWeapon.atk;
-        def -= principalWeapon.def;
-        mp -= principalWeapon.mp;
-        inv_string = others.addInvStringItem(inv_string, principal_weapon, 1);
-        principal_weapon = null;
+      if (secondary_weapon != null) {
+        secondaryWeapon = others.getItembyId(secondary_weapon);
+        atk -= secondaryWeapon.atk;
+        def -= secondaryWeapon.def;
+        mp -= secondaryWeapon.mp;
+        inv_string = others.addInvStringItem(inv_string, secondary_weapon, 1);
+        secondary_weapon = null;
         await Players.update(
-          { inv_string, principal_weapon, atk, def, mp },
+          { inv_string, secondary_weapon, atk, def, mp },
           { where: { telegram_id: chatId } }
         );
       }
-
       if (two_hands_weapon != null) {
         secondaryWeapon = others.getItembyId(two_hands_weapon);
         atk -= secondaryWeapon.atk;
@@ -79,14 +78,20 @@ module.exports = async (ctx) => {
           { where: { telegram_id: chatId } }
         );
       }
-      if (principal_weapon == null) {
-        def = def + item.def;
-        await Players.update({ def }, { where: { telegram_id: chatId } });
 
-        principal_weapon = idNumber;
+      if (secondary_weapon == null) {
+        def = def + item.def;
+        atk = atk + item.atk;
+        mp = mp + item.mp;
+        await Players.update(
+          { def, atk, mp },
+          { where: { telegram_id: chatId } }
+        );
+
+        secondary_weapon = idNumber;
         inv_string = others.deleteInvStringItem(inv_string, idNumber, 1);
         await Players.update(
-          { inv_string, principal_weapon },
+          { inv_string, secondary_weapon },
           { where: { telegram_id: chatId } }
         );
 

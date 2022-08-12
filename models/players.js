@@ -144,6 +144,10 @@ Players.init(
       type: DataTypes.INTEGER,
       allowNull: true,
     },
+    two_hands_weapon: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+    },
   },
   {
     // Other model options go here

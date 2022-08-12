@@ -50,6 +50,16 @@ function getIdForThisFile(file) {
   return idNumber;
 }
 
+function getIdForThisFilePlus(file, cantidad_de_letras_al_principio) {
+  var idString = "";
+  file_name = path.basename(file);
+  for (let i = cantidad_de_letras_al_principio; i < file_name.length - 3; i++) {
+    idString += file_name[i];
+  }
+  idNumber = parseInt(idString);
+  return idNumber;
+}
+
 function getItemsArray() {
   function compare(a, b) {
     if (a.id < b.id) {
@@ -254,6 +264,7 @@ module.exports = {
   probabilidad,
   getItemsArray,
   getIdForThisFile,
+  getIdForThisFilePlus,
   getItemsArrayWhereResources,
   getItembyId,
 };

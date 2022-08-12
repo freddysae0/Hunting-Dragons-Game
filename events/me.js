@@ -1,7 +1,6 @@
 const Players = require("../models/players");
 const others = require("../others/others");
-const arr_items = others.getItemsArray();
-var principal_weapon_icon = "";
+
 /* globals bot */
 
 /**
@@ -34,8 +33,12 @@ module.exports.do = async (ctx) => {
   //SETTING ICONS
 
   const principal_weapon_id = players[0].dataValues.principal_weapon;
+  const secondary_weapon_id = players[0].dataValues.secondary_weapon;
+  const two_hands_weapon_id = players[0].dataValues.two_hands_weapon;
 
   var principalWeapon = others.getItembyId(principal_weapon_id);
+  var secondaryWeapon = others.getItembyId(secondary_weapon_id);
+  var twoHandsWeapon = others.getItembyId(two_hands_weapon_id);
 
   //SETTING ICONS
   //END
@@ -67,12 +70,46 @@ module.exports.do = async (ctx) => {
       if (principalWeapon.dur > 0) {
         s += "+" + principalWeapon.dur.toString() + "💪";
       }
-      s += `${principal_weapon_icon} ..${
+      s += ` ${
         others.getItembyId(players.dataValues.principal_weapon).name
-      } /un${players.dataValues.principal_weapon}
+      } /un${players.dataValues.principal_weapon}\n    `;
+    }
+    if (players.dataValues.secondary_weapon) {
+      if (secondaryWeapon.atk > 0) {
+        s += "+" + secondaryWeapon.atk.toString() + "⚔️";
+      }
+      if (secondaryWeapon.def > 0) {
+        s += "+" + secondaryWeapon.def.toString() + "🛡️";
+      }
+      if (secondaryWeapon.mp > 0) {
+        s += "+" + secondaryWeapon.mp.toString() + "🔷";
+      }
+      if (secondaryWeapon.dur > 0) {
+        s += "+" + secondaryWeapon.dur.toString() + "💪";
+      }
+      s += ` ${
+        others.getItembyId(players.dataValues.secondary_weapon).name
+      } /un${players.dataValues.secondary_weapon}
       `;
     }
-
+    if (players.dataValues.two_hands_weapon) {
+      if (twoHandsWeapon.atk > 0) {
+        s += "+" + twoHandsWeapon.atk.toString() + "⚔️";
+      }
+      if (twoHandsWeapon.def > 0) {
+        s += "+" + twoHandsWeapon.def.toString() + "🛡️";
+      }
+      if (twoHandsWeapon.mp > 0) {
+        s += "+" + twoHandsWeapon.mp.toString() + "🔷";
+      }
+      if (twoHandsWeapon.dur > 0) {
+        s += "+" + twoHandsWeapon.dur.toString() + "💪";
+      }
+      s += ` ${
+        others.getItembyId(players.dataValues.two_hands_weapon).name
+      } /un${players.dataValues.two_hands_weapon}
+      `;
+    }
     if (players.dataValues.team_name)
       s += `Team: ${players.dataValues.team_name}
     `;

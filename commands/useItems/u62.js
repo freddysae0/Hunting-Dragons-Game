@@ -39,7 +39,6 @@ module.exports = async (ctx) => {
     var inv_string = players[0].dataValues.inv_string;
     var principal_weapon = players[0].dataValues.principal_weapon;
     var two_hands_weapon = players[0].dataValues.two_hands_weapon;
-
     console.log("name", name);
     console.log("race", race_name);
     console.log("principal weapon", principal_weapon);
@@ -66,7 +65,6 @@ module.exports = async (ctx) => {
           { where: { telegram_id: chatId } }
         );
       }
-
       if (two_hands_weapon != null) {
         secondaryWeapon = others.getItembyId(two_hands_weapon);
         atk -= secondaryWeapon.atk;
@@ -79,9 +77,15 @@ module.exports = async (ctx) => {
           { where: { telegram_id: chatId } }
         );
       }
+
       if (principal_weapon == null) {
         def = def + item.def;
-        await Players.update({ def }, { where: { telegram_id: chatId } });
+        atk = atk + item.atk;
+        mp = mp + item.mp;
+        await Players.update(
+          { def, atk, mp },
+          { where: { telegram_id: chatId } }
+        );
 
         principal_weapon = idNumber;
         inv_string = others.deleteInvStringItem(inv_string, idNumber, 1);

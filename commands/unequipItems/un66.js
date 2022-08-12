@@ -27,22 +27,25 @@ module.exports = async (ctx) => {
     var def = players[0].dataValues.def;
     var mp = players[0].dataValues.mp;
     var inv_string = players[0].dataValues.inv_string;
-    var principal_weapon = players[0].dataValues.principal_weapon;
+    var secondary_weapon = players[0].dataValues.secondary_weapon;
+    var primary_weapon = players[0].dataValues.primary_weapon;
+    var primary_weapon = players[0].dataValues.primary_weapon;
+    var two_hands_weapon = players[0].dataValues.two_hands_weapon;
 
     arr_items = Object.values(items);
     arr_items.sort(compare);
 
-    if (principal_weapon == idNumber) {
-      principalWeapon = others.getItembyId(principal_weapon);
-      console.log(principalWeapon);
-      atk -= principalWeapon.atk;
-      def -= principalWeapon.def;
-      mp -= principalWeapon.mp;
-      inv_string = others.addInvStringItem(inv_string, principal_weapon, 1);
+    if (two_hands_weapon == idNumber) {
+      twoHandsWeapon = others.getItembyId(two_hands_weapon);
+      console.log(twoHandsWeapon);
+      atk -= twoHandsWeapon.atk;
+      def -= twoHandsWeapon.def;
+      mp -= twoHandsWeapon.mp;
+      inv_string = others.addInvStringItem(inv_string, two_hands_weapon, 1);
 
-      principal_weapon = null;
+      two_hands_weapon = null;
       await Players.update(
-        { inv_string, principal_weapon, atk, def, mp },
+        { inv_string, two_hands_weapon, atk, def, mp },
         { where: { telegram_id: chatId } }
       );
       ctx.reply("Item unequiped");

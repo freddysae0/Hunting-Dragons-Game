@@ -11,24 +11,24 @@ const Players = require("../../models/players");
 const others = require("../others");
 */
 const id = idNumber;
-const name = "Wooden Sword";
-const description = `Usable Item. This hurts:  
-+3 atk
+const name = "One hand stick";
+const description = `Usable Item. Sometimes a stick is better that nothing
++2 atk
 Press /u${idNumber} to equip`;
-const atk = 3;
+
+const atk = 2;
 const def = 0;
 const mp = 0;
-const dur = 0;
-
 const class_id = 3;
 const class_name = "Usable";
-const weapon_class_id = 1;
-const weapon_class_name = "Primary Sword";
+
+const weapon_class_id = 2;
+const weapon_class_name = "Secondary Sword";
 
 const tier_id = null;
 const tier_name = null;
 const can_be_crafted = true;
-const crafted_with_string = "/5/.3.";
+const crafted_with_string = "/5/.1.";
 const crafting_return = 1;
 
 async function use(ctx) {
@@ -40,14 +40,13 @@ module.exports = {
   name,
   description,
   class_id,
-  file_name,
+  class_name,
   weapon_class_id,
   weapon_class_name,
+  file_name,
   atk,
   def,
   mp,
-  dur,
-  class_name,
   tier_id,
   tier_name,
   can_be_crafted,
