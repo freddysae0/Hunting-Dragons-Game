@@ -5,7 +5,12 @@ const con = new Sequelize("hdgdb", "hdg", "3S6f!0UjfGeQ", {
   host: "152.206.119.219",
   dialect: "mysql",
 });
-
+/*
+const con = new Sequelize("sql3516810", "sql3516810", "6icTKYI1wy", {
+  host: "sql3.freesqldatabase.com",
+  port: 3306,
+  dialect: "mysql",
+});*/
 async function authenticate() {
   try {
     await con.authenticate();
