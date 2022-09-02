@@ -7,6 +7,7 @@ const me = require("../events/me");
  * @param ctx
  * @returns {*}
  */
+
 module.exports = async (ctx) => {
   await Players.sync();
   var chatId = ctx.update.message.chat.id;
