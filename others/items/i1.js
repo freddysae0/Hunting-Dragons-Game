@@ -1,13 +1,12 @@
-var path = require("path");
+const Players = require("../../models/players");
+const others = require("../others");
+const path = require("path");
 var idString = "";
 file_name = path.basename(__filename);
 for (let i = 1; i < file_name.length - 3; i++) {
   idString += file_name[i];
 }
 idNumber = parseInt(idString);
-
-const Players = require("../../models/players");
-const others = require("../others");
 
 const id = idNumber;
 const name = "Old man letter";
@@ -20,7 +19,6 @@ const tier_name = null;
 const can_be_crafted = false;
 const crafted_with_string = null;
 const crafting_return = null;
-
 async function use(ctx) {
   var chatId = ctx.update.message.chat.id;
   var player = await Players.findOne({
@@ -29,7 +27,9 @@ async function use(ctx) {
     },
   });
   var tieneElItem = false;
+
   itemsAndQuantity = others.decifrarInvString(player.dataValues.inv_string);
+
   for (let i = 0; i < itemsAndQuantity.items.length; i++) {
     if (itemsAndQuantity.items[i] == 1) tieneElItem = true;
   }

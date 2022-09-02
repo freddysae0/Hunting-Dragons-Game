@@ -24,12 +24,14 @@ const crafting_return = null;
 async function use(ctx) {
   var chatId = ctx.update.message.chat.id;
   var player = await Players.findOne({
+    attributes: ["inv_string"],
     where: {
       telegram_id: chatId,
     },
   });
   var tieneElItem = false;
   itemsAndQuantity = others.decifrarInvString(player.dataValues.inv_string);
+
   for (let i = 0; i < itemsAndQuantity.items.length; i++) {
     if (itemsAndQuantity.items[i] == 2) tieneElItem = true;
   }
