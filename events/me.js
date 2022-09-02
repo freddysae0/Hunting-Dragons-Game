@@ -2,7 +2,10 @@ const Players = require("../models/players");
 const others = require("../others/others");
 
 /* globals bot */
-
+const INITIAL_KEYBOARD = [
+  [{ text: "Me" }, { text: "Explore" }],
+  [{ text: "Craft" }, { text: "Castle" }],
+];
 /**
  * Can be regular expression or String
  * @type {RegExp}
@@ -117,7 +120,12 @@ module.exports.do = async (ctx) => {
       s += `Castle: ${players.dataValues.castle_name}`;
     s += `
 Press /inv to open the inventary `;
-    ctx.reply(s);
+    ctx.reply(s, {
+      reply_markup: {
+        keyboard: INITIAL_KEYBOARD,
+        resize_keyboard: true,
+      },
+    });
   } else {
     console.log(
       `El usuario con id:${chatId} no esta logueado e intenta acceder al comando /me`
