@@ -84,6 +84,11 @@ Players.init(
       type: DataTypes.STRING,
       allowNull: false,
     },
+    inv_size: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      defaultValue: 3000,
+    },
     atk: {
       type: DataTypes.INTEGER,
       allowNull: true,
