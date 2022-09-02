@@ -10,7 +10,7 @@ module.exports = async (ctx) => {
   }
   var chatId = ctx.update.message.chat.id;
   var players = await Players.findAll({
-    attributes: ["inv_string"],
+    attributes: ["inv_string", "inv_size"],
     where: {
       telegram_id: chatId,
     },
@@ -23,15 +23,15 @@ module.exports = async (ctx) => {
   itemsEnElInv = itemsAndQuantity.items;
 
   var tengoElItem = [];
-
+  var q = 0;
   for (let i = 0; i < itemsEnElInv.length; i++) {
     tengoElItem[itemsEnElInv[i]] = itemsAndQuantity.quantity[i];
+    q += itemsAndQuantity.quantity[i];
   }
   itemsEnElInv.sort(compare);
   console.log(itemsEnElInv);
   Items = others.getItemsArray();
-
-  var s = `<b>Your inventory:</b>
+  var s = `<b>Your inventory: (${q}/${players[0].dataValues.inv_size})</b>
     `;
 
   if (itemsAndQuantity.items.length == 0) s = "Your inventory is empty";
